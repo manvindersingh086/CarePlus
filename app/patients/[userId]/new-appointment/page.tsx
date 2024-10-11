@@ -20,11 +20,11 @@ const NewAppointment = async ({params: { userId }}: SearchParamProps) => {
               className="mb-12 h-10 w-fit"
             />
 
-            <AppointmentForm 
-                type="create"
-                userId={""}
-                patientId={""}
-            />
+<AppointmentForm
+            patientId={patient?.$id}
+            userId={userId}
+            type="create"
+          />
 
             <div className="text-14-regular mt-20 flex justify-between">
                 <p className="py-12">

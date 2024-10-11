@@ -38,6 +38,7 @@ export const createUser = async (user: CreateUserParams) => {
 
 export const getUser = async (userId: string) => {
     try {
+        console.log(userId)
         const user = await users.get(userId)
         return parseStringify(user);
     }
@@ -86,10 +87,10 @@ export const getPatient = async (userId: string) => {
             DATABASE_ID!,
             PATIENT_COLLECTION_ID!,
             [
-                Query.equal('$userId', userId)
+                Query.equal("userId", [userId])
             ]
         );
-
+        console.log("patients",patients)
         return parseStringify(patients.documents[0]);
     } catch (error) {
         console.log(error);
