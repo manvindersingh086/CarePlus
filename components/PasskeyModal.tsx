@@ -11,7 +11,15 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
+  } from "@/components/ui/alert-dialog";
+
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+} from "@/components/ui/input-otp"
+  
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -19,6 +27,7 @@ const PasskeyModal = () => {
 
     const router = useRouter();
     const [open, setOpen] = useState(true);
+    const [passkey, setPasskey] = useState('')
 
     const closeModel = () => {
         setOpen(false);
@@ -44,9 +53,21 @@ const PasskeyModal = () => {
                    To access the admin page, please enter the passkey.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
+                <div>
+                    <InputOTP maxLength={6} value={passkey} onChange={(value) => setPasskey(value)}>
+                        <InputOTPGroup className='shad-otp'>
+                            <InputOTPSlot className='shad-otp-slot' index={0} />
+                            <InputOTPSlot className='shad-otp-slot' index={1} />
+                            <InputOTPSlot className='shad-otp-slot' index={2} />
+                            <InputOTPSlot className='shad-otp-slot' index={4} />
+                            <InputOTPSlot className='shad-otp-slot' index={5} />
+                            <InputOTPSlot className='shad-otp-slot' index={6} />
+                        </InputOTPGroup>
+                    </InputOTP>
+                </div>
                 <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Continue</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
