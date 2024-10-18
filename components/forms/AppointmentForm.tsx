@@ -11,6 +11,7 @@ import { SelectItem } from "@/components/ui/select";
 import { Doctors } from "@/constants";
 import {
   createAppointment,
+  updateAppointment,
 } from "@/lib/actions/appointment.action";
 import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
@@ -32,7 +33,7 @@ const AppointmentForm = ({
   patientId: string;
   type: "create" | "schedule" | "cancel";
   appointment?: Appointment;
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+  setOpen:(open:boolean) => void;
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -96,20 +97,20 @@ const AppointmentForm = ({
           userId,
           appointmentId: appointment?.$id!,
           appointment: {
-            primaryPhysician: values.primaryPhysician,
-            schedule: new Date(values.schedule),
+            primaryPhysician: values?.primaryPhysician,
+            schedule: new Date(values?.schedule),
             status: status as Status,
-            cancellationReason: values.cancellationReason,
+            cancellationReason: values?.cancellationReason,
           },
           type,
         };
 
-      //  const updatedAppointment = await updateAppointment(appointmentToUpdate);
+       const updatedAppointment = await updateAppointment(appointmentToUpdate);
 
-        // if (updatedAppointment) {
-        //   setOpen && setOpen(false);
-        //   form.reset();
-        // }
+        if (updatedAppointment) {
+          setOpen && setOpen(false);
+          form.reset();
+        }
       }
     } catch (error) {
       console.log(error);
